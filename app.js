@@ -34,9 +34,10 @@ var OpenApiClient = function (options, callback) {
 
 
     self._client.on("data", function (data) {
-        var json = {};
+        var json = {} , dataStr = "";
         try {
-            json = JSON.parse(data.toString())
+            dataStr  = data.toString();
+            json = JSON.parse(dataStr);
         } catch (e) {
             callback(e);
             return;
@@ -45,14 +46,14 @@ var OpenApiClient = function (options, callback) {
         switch (json.type) {
             case "auth" :
                 if (json.err < 0) {
-                    callback(data);
+                    callback(json);
                 } else {
                     callback();
                 }
 
                 break;
             default :
-                self._events.emit("data");
+                self._events.emit("data" , dataStr);
                 break;
         }
 

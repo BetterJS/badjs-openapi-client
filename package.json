@@ -1,6 +1,6 @@
 {
   "name": "badjs-openapi-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "for connect badjs-api ",
   "main": "app.js",
   "dependencies": {

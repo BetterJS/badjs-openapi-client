@@ -3,7 +3,9 @@
 > for connect badjs-api
 
 #install
-> npm install badjs-openapi-client
+```
+ npm install badjs-openapi-client
+ ```
 
 #Usage
 ``` javascript

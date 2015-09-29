@@ -4,13 +4,17 @@
 
 var Client = require("../app");
 
-var client = Client({port : 9500 , host : "127.0.0.1" , appkey : "1f3d368d87a72267d9134d99cee392b062"} , function (err){
+var client = Client({port : 9500 , host : "127.0.0.1" , appkey : "1f3d368d87a767d9134d99cee392b062"} , function (err){
     console.log(err ? err : "connect succ ");
 })
 
 
 client.on("data", function(data){
     console.log(data);
+})
+
+client.on("timeout", function(data){
+    console.log("timeout");
 })
 
 
@@ -21,9 +25,9 @@ client.on("close", close = function(data){
 
 //client.off("close" , close)
 
-setTimeout(function (){
+/*setTimeout(function (){
     client.close();
-},10000)
+},10000)*/
 
 
 

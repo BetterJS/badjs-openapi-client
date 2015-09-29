@@ -1,7 +1,7 @@
 var net = require('net');
 var Events = require("events");
 
-
+var TIME_OUT = 60 * 1000 * 10;
 /**
  * @param setting
  * @constructor
@@ -29,8 +29,19 @@ var OpenApiClient = function (options, callback) {
 
 
     this._timeoutId = setInterval(function () {
-        !self._closeflag && self._client.write(JSON.stringify({type: "keepalive"}))
-    }, 5000);
+        if(!self._closeflag){
+
+            if(new Date - self._timeout > TIME_OUT){
+                self._events.emit("timeout");
+                self.close();
+                return ;
+            }
+
+            self._client.write(JSON.stringify({type: "keepalive"}))
+        }
+    }, 1000 * 60 * 5);
+
+    this._timeout = new Date - 0
 
 
     self._client.on("data", function (data) {
@@ -52,6 +63,9 @@ var OpenApiClient = function (options, callback) {
                 }
 
                 break;
+
+            case "keepalive":
+                self._timeout = new Date - 0;
             default :
                 self._events.emit("data" , dataStr);
                 break;
